@@ -16,6 +16,7 @@ export interface ValidatorOptions {
   lang?: Lang;
   on?: Partial<Events>;
   renderErrors?: boolean;
+  renderSuccess?: boolean;
   xRules?: XRules;
   onFieldChangeValidation?: boolean;
   onFieldChangeValidationDelay?: number;
