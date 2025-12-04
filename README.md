@@ -117,6 +117,18 @@ const v = new Validator(form, {
 
 <br/>
 
+### Validate only visible fields
+
+With the option `disableInvisibleFields` you are able to decide, if you want to validate invisible fields. Invisible means in this case, fields which are not visible for the user (f.e. it's inside a collapsed option). This gives you the power to create dynamic forms with fields belongs to selected options before - and a validation of only required fields.
+
+```js
+const v = new Validator(form, {
+  disableInvisibleFields: true,
+}
+```
+
+<br/>
+
 ### Getting Field Values
 
 Use `values()` method from the validator to get the values of all fields in the form:

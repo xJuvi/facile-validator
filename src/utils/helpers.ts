@@ -117,3 +117,22 @@ export function isXRule(rule: string) {
 export function isObject(obj: unknown) {
   return typeof obj === 'object' && obj !== null && Object.getPrototypeOf(obj) === Object.prototype;
 }
+
+export function checkFieldVisibility(field: FormInputElement) {
+	// check base field visibility options
+	const style = window.getComputedStyle(field);
+	const invisible = style.display === "none" || style.visibility === "hidden" || field.offsetParent === null;
+
+	if (!invisible) return true; // field id visible: validate it
+
+	// field is in a closed collapse: DONT validate
+	const collapse = field.closest('.collapse');
+	if (collapse && !collapse.classList.contains('show')) return false;
+
+	// special case: field is inside a bootstrap .tab-pane: validate it
+	const tabPane = field.closest('.tab-pane');
+	if (tabPane) return true;
+
+	// Otherwise: field is invisible and not inside a tab pane → DONT validate
+	return false;
+}

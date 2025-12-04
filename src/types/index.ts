@@ -22,6 +22,7 @@ export interface ValidatorOptions {
   xRules?: XRules;
   onFieldChangeValidation?: boolean;
   onFieldChangeValidationDelay?: number;
+  disableInvisibleFields?: boolean;
 }
 
 export interface Rule {
