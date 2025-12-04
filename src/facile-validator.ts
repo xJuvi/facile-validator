@@ -1,7 +1,7 @@
 import * as rules from '@/rules';
 import { ValidatorOptions, EventsName, Events, FormInputElement, Lang } from '@/types';
 import ValidatorError from '@/modules/validator-error';
-import { getValue, toCamelCase, defaultErrorListeners, processRule } from '@/utils/helpers';
+import { getValue, toCamelCase, defaultErrorListeners, processRule, checkFieldVisibility } from '@/utils/helpers';
 import EventBus from './modules/events';
 import Language from './modules/language';
 import { RuleError } from './modules/rule-error';
@@ -13,6 +13,7 @@ const defaultOptions: ValidatorOptions = {
   renderErrors: true,
   renderSuccess: true,
   onFieldChangeValidationDelay: 500,
+  disableInvisibleFields: false,
 };
 
 class Validator {
@@ -98,6 +99,10 @@ class Validator {
         const value = getValue(field);
         const shouldStopOnFirstFailure = this.shouldStopOnFirstFailure(fieldRules);
         const computedFieldRules = this.getComputedFieldRules(fieldRules, field);
+		
+		if (this.options.disableInvisibleFields && !checkFieldVisibility(field)) {
+			continue;
+		}
 
         for (const fieldRule of computedFieldRules) {
           const {
