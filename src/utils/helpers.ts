@@ -117,3 +117,22 @@ export function isXRule(rule: string) {
 export function isObject(obj: unknown) {
   return typeof obj === 'object' && obj !== null && Object.getPrototypeOf(obj) === Object.prototype;
 }
+
+export function normalizeFields(fields: FormInputElement[]) {
+	const byName = new Map<string, FormInputElement[]>();
+
+	for (const f of fields) {
+		if (f.type !== "radio") continue;
+		if (!byName.has(f.name)) byName.set(f.name, []);
+		byName.get(f.name)!.push(f);
+	}
+
+	let result = fields.filter(f => f.type !== "radio");
+
+	for (const group of byName.values()) {
+		const checked = group.find(r => r.checked) ?? group[0];
+		result.push(checked);
+	}
+
+	return result;
+}

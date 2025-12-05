@@ -1,7 +1,7 @@
 import * as rules from '@/rules';
 import { ValidatorOptions, EventsName, Events, FormInputElement, Lang } from '@/types';
 import ValidatorError from '@/modules/validator-error';
-import { getValue, toCamelCase, defaultErrorListeners, processRule } from '@/utils/helpers';
+import { getValue, toCamelCase, defaultErrorListeners, processRule, normalizeFields } from '@/utils/helpers';
 import EventBus from './modules/events';
 import Language from './modules/language';
 import { RuleError } from './modules/rule-error';
@@ -52,9 +52,11 @@ class Validator {
     if (fields === undefined) {
       fields = this.container.querySelectorAll<FormInputElement>('[data-rules]');
     }
+	
+	const normalizedFields = normalizeFields(Array.from(fields));
 
-    if (fields.length > 0) {
-      isSuccessful = this.validateFields(Array.from(fields));
+    if (normalizedFields.length > 0) {
+      isSuccessful = this.validateFields(normalizedFields);
       status = isSuccessful ? 'success' : 'failed';
     }
 
