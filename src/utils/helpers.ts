@@ -126,8 +126,11 @@ export function checkFieldVisibility(field: FormInputElement) {
 	if (!invisible) return true; // field id visible: validate it
 
 	// field is in a closed collapse: DONT validate
-	const collapse = field.closest('.collapse');
-	if (collapse && !collapse.classList.contains('show')) return false;
+	for (let el = field.parentElement; el; el = el.parentElement) {
+      if (el.classList.contains('collapse') && !el.classList.contains('show')) {
+        return false;
+      }
+    }
 
 	// special case: field is inside a bootstrap .tab-pane: validate it
 	const tabPane = field.closest('.tab-pane');
