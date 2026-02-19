@@ -123,7 +123,10 @@ class Validator {
                 let customMessage = '';
 
                 if (customErrorMessage) {
-                  customMessage = typeof customErrorMessage === 'function' ? customErrorMessage(field) : customErrorMessage;
+                  customMessage = 
+				    typeof customErrorMessage === 'function' 
+					  ? customErrorMessage(field) 
+					  : customErrorMessage;
                 }
                 this.validatorError.setError(field, ruleName, result, customMessage);
                 if (shouldStopOnFirstFailure) {
