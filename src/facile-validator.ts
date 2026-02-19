@@ -118,14 +118,10 @@ class Validator {
 		  
 		  const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
 		  
-		  if (ruleFn) {
-			try {
-			  const result = ruleFn(value, ruleArgs);
-/*
-          if (ruleKey in rules) {
+          if (ruleFn) {
             try {
-              const result = rules[ruleKey](value, ruleArgs);
-*/
+              const result = ruleFn(value, ruleArgs);
+
               if (result instanceof RuleError) {
                 let customMessage = '';
 
