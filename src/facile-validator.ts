@@ -19,7 +19,7 @@ class Validator {
   private events: EventBus;
   private options: ValidatorOptions;
   private container: HTMLElement;
-  
+
   /** Global rule registry */
   private static globalRules: Record<string, Rule> = {};
 
@@ -115,11 +115,17 @@ class Validator {
           if (this.isNullable(ruleKey) && value === '') {
             break;
           }
-
+		  
+		  const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
+		  
+		  if (ruleFn) {
+			try {
+			  const result = ruleFn(value, ruleArgs);
+/*
           if (ruleKey in rules) {
             try {
               const result = rules[ruleKey](value, ruleArgs);
-
+*/
               if (result instanceof RuleError) {
                 let customMessage = '';
 
@@ -188,7 +194,7 @@ class Validator {
   public setLanguage(lang: Lang) {
     Language.set(lang);
   }
-  
+
   /**
    * Register a global validation rule
    */
@@ -216,7 +222,10 @@ class Validator {
   public static use(plugin: (validator: typeof Validator) => void) {
     plugin(Validator);
   }
-
 }
+
+Object.entries(rules).forEach(([name, rule]) => {
+  Validator.addRule(name, rule as Rule);
+});
 
 export default Validator;
