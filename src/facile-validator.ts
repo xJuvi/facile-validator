@@ -220,8 +220,8 @@ class Validator {
   }
 }
 
+export default Validator;
+
 Object.entries(rules).forEach(([name, rule]) => {
   Validator.addRule(name, rule as Rule);
 });
-
-export default Validator;
