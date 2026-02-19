@@ -103,7 +103,7 @@ describe('Validator – custom rules & plugins', () => {
 
   it('built-in rules still work (regression test)', () => {
     const form = createForm(`
-      <input name="test" value="5" data-rules="between:number,1,10" />
+      <input name="test" value="5" data-rules="between:1,10" />
     `);
 
     const v = new Validator(form);
@@ -112,3 +112,4 @@ describe('Validator – custom rules & plugins', () => {
     expect(result).toBe(true);
   });
 });
+
