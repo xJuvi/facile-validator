@@ -15,7 +15,7 @@ export function adaptRule(
   rules: string[],
   field: FormInputElement,
   container: HTMLElement,
-  xRules?: XRules
+  xRules?: XRules,
 ): string {
   const ruleName = toCamelCase(processRule(rule, xRules).name);
 
@@ -27,7 +27,7 @@ export function prependType(
   rules: string[],
   _field: FormInputElement,
   _parentEl: HTMLElement,
-  xRules?: XRules
+  xRules?: XRules,
 ): string {
   const { name, argsValue } = processRule(rule, xRules);
 
@@ -49,7 +49,7 @@ function prependTargetValue(
   _rules: string[],
   _field: FormInputElement,
   _parentEl: HTMLElement,
-  xRules?: XRules
+  xRules?: XRules,
 ): string {
   const { name, args } = processRule(rule, xRules);
 
