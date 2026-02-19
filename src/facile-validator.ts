@@ -116,7 +116,7 @@ class Validator {
             break;
           }
 
-		  const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
+          const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
 
           if (ruleFn) {
             try {
