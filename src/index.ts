@@ -1,4 +1,5 @@
 export { default as Validator } from '@/facile-validator';
+export { RuleError } from '@/modules/rule-error';
 export {
   en as enLang,
   fa as faLang,
