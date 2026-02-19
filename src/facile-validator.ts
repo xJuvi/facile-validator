@@ -11,6 +11,7 @@ type RuleKey = keyof typeof rules;
 
 const defaultOptions: ValidatorOptions = {
   renderErrors: true,
+  renderSuccess: true,
   onFieldChangeValidationDelay: 500,
 };
 
@@ -133,6 +134,8 @@ class Validator {
                 if (shouldStopOnFirstFailure) {
                   break;
                 }
+              } else if(this.options.renderSuccess) {
+                this.events.call('field:success', this.container, field);
               }
             } catch (error) {
               console.error(new Error(`${ruleName}: ${(error as Error).message}`));
@@ -162,8 +165,9 @@ class Validator {
     const totalErrors = this.validatorError.errors;
 
     totalErrors.forEach((fieldErrors) => {
-      if (fieldErrors.length === 0) return;
-
+      if (fieldErrors.length === 0) {
+        return;
+      }
       this.events.call('field:error', this.container, fieldErrors[0].element, fieldErrors);
     });
   }
