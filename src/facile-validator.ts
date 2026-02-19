@@ -134,7 +134,6 @@ class Validator {
 
     totalErrors.forEach((fieldErrors) => {
       if (fieldErrors.length === 0) return;
-
       this.events.call('field:error', this.container, fieldErrors[0].element, fieldErrors);
     });
   }
