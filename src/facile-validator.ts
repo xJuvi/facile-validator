@@ -125,8 +125,8 @@ class Validator {
                 if (customErrorMessage) {
                   customMessage = 
 				    typeof customErrorMessage === 'function' 
-					  ? customErrorMessage(field) 
-					  : customErrorMessage;
+                      ? customErrorMessage(field) 
+                      : customErrorMessage;
                 }
                 this.validatorError.setError(field, ruleName, result, customMessage);
                 if (shouldStopOnFirstFailure) {
@@ -141,7 +141,6 @@ class Validator {
         }
       }
     }
-
     return !this.validatorError.hasError;
   }
 

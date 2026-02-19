@@ -121,7 +121,7 @@ export function isObject(obj: unknown) {
 export function checkFieldVisibility(field: FormInputElement) {
   // check base field visibility options
   const style = window.getComputedStyle(field);
-  const invisible = style.display === "none" || style.visibility === "hidden" || field.offsetParent === null;
+  const invisible = style.display === 'none' || style.visibility === 'hidden' || field.offsetParent === null;
 
   if (!invisible) return true; // field id visible: validate it
 
