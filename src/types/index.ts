@@ -11,7 +11,7 @@ type FieldArgTypes = string | number | RegExp;
 export type RichXRule = { errorMessage?: string | ((field: FormInputElement) => string); value: FieldArgTypes };
 export type LangKeys = ErrorCause[keyof ErrorCause];
 export type Lang = Partial<Record<LangKeys, string>>;
-export type RuleName = typeof rules[keyof typeof rules];
+export type RuleName = (typeof rules)[keyof typeof rules];
 export type XRules = Record<string, FieldArgTypes | RichXRule>;
 export type RuleKey = keyof typeof rules;
 
@@ -56,7 +56,7 @@ export type AdapterFn = (
   rules: string[],
   field: FormInputElement,
   container: HTMLElement,
-  xRules?: XRules
+  xRules?: XRules,
 ) => string;
 
 export type FormInputElement = HTMLInputElement | HTMLSelectElement;

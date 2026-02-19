@@ -123,10 +123,8 @@ class Validator {
                 let customMessage = '';
 
                 if (customErrorMessage) {
-                  customMessage = 
-                    typeof customErrorMessage === 'function' 
-                      ? customErrorMessage(field) 
-                      : customErrorMessage;
+                  customMessage =
+                    typeof customErrorMessage === 'function' ? customErrorMessage(field) : customErrorMessage;
                 }
                 this.validatorError.setError(field, ruleName, result, customMessage);
                 if (shouldStopOnFirstFailure) {
@@ -141,7 +139,7 @@ class Validator {
         }
       }
     }
-      return !this.validatorError.hasError;
+    return !this.validatorError.hasError;
   }
 
   private shouldStopOnFirstFailure(givenRules: Array<string>) {
