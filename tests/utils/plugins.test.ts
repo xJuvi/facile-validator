@@ -112,4 +112,3 @@ describe('Validator – custom rules & plugins', () => {
     expect(result).toBe(true);
   });
 });
-
