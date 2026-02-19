@@ -115,9 +115,9 @@ class Validator {
           if (this.isNullable(ruleKey) && value === '') {
             break;
           }
-		  
+
 		  const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
-		  
+
           if (ruleFn) {
             try {
               const result = ruleFn(value, ruleArgs);
