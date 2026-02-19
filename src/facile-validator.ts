@@ -98,10 +98,10 @@ class Validator {
         const value = getValue(field);
         const shouldStopOnFirstFailure = this.shouldStopOnFirstFailure(fieldRules);
         const computedFieldRules = this.getComputedFieldRules(fieldRules, field);
-		
-		if (this.options.disableInvisibleFields && !checkFieldVisibility(field)) {
-			continue;
-		}
+
+        if (this.options.disableInvisibleFields && !checkFieldVisibility(field)) {
+            continue;
+        }
 
         for (const fieldRule of computedFieldRules) {
           const {

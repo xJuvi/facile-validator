@@ -119,23 +119,23 @@ export function isObject(obj: unknown) {
 }
 
 export function checkFieldVisibility(field: FormInputElement) {
-	// check base field visibility options
-	const style = window.getComputedStyle(field);
-	const invisible = style.display === "none" || style.visibility === "hidden" || field.offsetParent === null;
+  // check base field visibility options
+  const style = window.getComputedStyle(field);
+  const invisible = style.display === "none" || style.visibility === "hidden" || field.offsetParent === null;
 
-	if (!invisible) return true; // field id visible: validate it
+  if (!invisible) return true; // field id visible: validate it
 
-	// field is in a closed collapse: DONT validate
-	for (let el = field.parentElement; el; el = el.parentElement) {
-      if (el.classList.contains('collapse') && !el.classList.contains('show')) {
-        return false;
-      }
+  // field is in a closed collapse: DONT validate
+  for (let el = field.parentElement; el; el = el.parentElement) {
+    if (el.classList.contains('collapse') && !el.classList.contains('show')) {
+      return false;
     }
+  }
 
-	// special case: field is inside a bootstrap .tab-pane: validate it
-	const tabPane = field.closest('.tab-pane');
-	if (tabPane) return true;
+  // special case: field is inside a bootstrap .tab-pane: validate it
+  const tabPane = field.closest('.tab-pane');
+  if (tabPane) return true;
 
-	// Otherwise: field is invisible and not inside a tab pane → DONT validate
-	return false;
+  // Otherwise: field is invisible and not inside a tab pane → DONT validate
+  return false;
 }
