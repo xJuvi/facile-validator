@@ -100,7 +100,7 @@ class Validator {
         const computedFieldRules = this.getComputedFieldRules(fieldRules, field);
 
         if (this.options.disableInvisibleFields && !checkFieldVisibility(field)) {
-            continue;
+          continue;
         }
 
         for (const fieldRule of computedFieldRules) {
@@ -123,8 +123,7 @@ class Validator {
                 let customMessage = '';
 
                 if (customErrorMessage) {
-                  customMessage =
-                    typeof customErrorMessage === 'function' ? customErrorMessage(field) : customErrorMessage;
+                  customMessage = typeof customErrorMessage === 'function' ? customErrorMessage(field) : customErrorMessage;
                 }
                 this.validatorError.setError(field, ruleName, result, customMessage);
                 if (shouldStopOnFirstFailure) {
