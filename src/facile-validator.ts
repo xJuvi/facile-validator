@@ -1,5 +1,5 @@
 import * as rules from '@/rules';
-import { ValidatorOptions, EventsName, Events, FormInputElement, Lang } from '@/types';
+import { ValidatorOptions, EventsName, Events, FormInputElement, Lang, Rule } from '@/types';
 import ValidatorError from '@/modules/validator-error';
 import { getValue, toCamelCase, defaultErrorListeners, processRule } from '@/utils/helpers';
 import EventBus from './modules/events';
@@ -19,6 +19,12 @@ class Validator {
   private events: EventBus;
   private options: ValidatorOptions;
   private container: HTMLElement;
+
+  /** Global rule registry */
+  private static globalRules: Record<string, Rule> = {};
+
+  /** Instance-level overrides */
+  private instanceRules: Record<string, Rule> = {};
 
   constructor(container: HTMLElement, options: ValidatorOptions = {}) {
     if (container === null || !(container instanceof HTMLElement)) {
@@ -110,9 +116,11 @@ class Validator {
             break;
           }
 
-          if (ruleKey in rules) {
+          const ruleFn = this.instanceRules[ruleKey] ?? Validator.globalRules[ruleKey];
+
+          if (ruleFn) {
             try {
-              const result = rules[ruleKey](value, ruleArgs);
+              const result = ruleFn(value, ruleArgs);
 
               if (result instanceof RuleError) {
                 let customMessage = '';
@@ -182,6 +190,38 @@ class Validator {
   public setLanguage(lang: Lang) {
     Language.set(lang);
   }
+
+  /**
+   * Register a global validation rule
+   */
+  public static addRule(name: string, rule: Rule) {
+    const key = toCamelCase(name);
+    Validator.globalRules[key] = rule;
+  }
+
+  /** DX alias */
+  public static extend(name: string, rule: Rule) {
+    Validator.addRule(name, rule);
+  }
+
+  /**
+   * Register rule only for this validator instance
+   */
+  public addInstanceRule(name: string, rule: Rule) {
+    const key = toCamelCase(name);
+    this.instanceRules[key] = rule;
+  }
+
+  /**
+   * Plugin system (ESM friendly)
+   */
+  public static use(plugin: (validator: typeof Validator) => void) {
+    plugin(Validator);
+  }
 }
+
+Object.entries(rules).forEach(([name, rule]) => {
+  Validator.addRule(name, rule as Rule);
+});
 
 export default Validator;
