@@ -16,6 +16,7 @@ describe('rules: between', () => {
     expect(between('100', 'number,0,100')).toBe(true);
     expect(between('100', 'number,100,200')).toBe(true);
     expect(between('100', 'number,0,200')).toBe(true);
+    expect(between('100', 'number,100,100')).toBe(true);
 
     expect(between('-100', 'number,-200,-100')).toBe(true);
     expect(between('-100', 'number,-100,0')).toBe(true);
