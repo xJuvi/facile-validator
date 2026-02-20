@@ -1,4 +1,6 @@
 name: publish to npm
+on:
+  workflow_dispatch
 
 jobs:
   build:
