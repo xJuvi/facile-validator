@@ -5,7 +5,7 @@ You can easily integrate Facile Validator into an existing React project by util
 3. Add implementation logic inside a `useEffect` hook with the ref object as a dependency
 
 ```tsx
-import { Validator, enLang as en } from '@upjs/facile-validator';
+import { Validator, enLang as en } from '@xjuvi/facile-validator';
 import { useEffect, useRef } from 'react';
 
 export function MyReactComponent() {

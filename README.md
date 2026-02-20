@@ -2,7 +2,7 @@
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![verify](https://github.com/upjs/facile-validator/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/upjs/facile-validator/actions/workflows/verify.yml)
+[![verify](https://github.com/xJuvi/facile-validator/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/xJuvi/facile-validator/actions/workflows/verify.yml)
 [![License][license-src]][license-href]
 
 Robust Frontend Form Validation, inspired by Laravel Validation, Built for Simplicity of Use 😋
@@ -32,10 +32,10 @@ Facile (French word for "easy", pronounced `fa·sil`) is an HTML form validator 
 ## Installation
 
 ```bash
-npm i @upjs/facile-validator
+npm i @xjuvi/facile-validator
 
 # or
-yarn add @upjs/facile-validator
+yarn add @xjuvi/facile-validator
 ```
 
 <br/>
@@ -62,7 +62,7 @@ The rules for each field are separated with a pipe character (vertical line) `|`
 JavaScript:
 
 ```javascript
-import { Validator, enLang as en } from '@upjs/facile-validator';
+import { Validator, enLang as en } from '@xjuvi/facile-validator';
 
 // Select the container element that contains the fields
 const form = document.querySelector('form');
@@ -296,7 +296,7 @@ const v = new Validator(form, {
 - [starts-with](#starts-with)
 - [in](#in)
 - ...
-- [Your rule?](https://github.com/upjs/facile-validator/pulls)
+- [Your rule?](https://github.com/xJuvi/facile-validator/pulls)
 
 ---
 
@@ -666,7 +666,7 @@ Open [the demo](https://upjs.github.io/facile-validator/) and play with the pass
 When instantiating the `Validator` class, importing a language is mandatory. This allows you to keep the bundle size as minimal as possible by including only the desired language:
 
 ```javascript
-import { Validator, enLang as en } from '@upjs/facile-validator';
+import { Validator, enLang as en } from '@xjuvi/facile-validator';
 
 const form = document.querySelector('form');
 const v = new Validator(form, {
@@ -685,7 +685,7 @@ Facile Validator currently supports these languages by default:
 - Czech (import with `csLang`) (Since v1.9)
 - Dutch (import with `nlLang`) (Since v1.10)
 
-We welcome any contributions for other languages. The languages are located in [this path](https://github.com/upjs/facile-validator/blob/main/src/locales). Just copy any file, translate it into your own language and then make a **PR**.
+We welcome any contributions for other languages. The languages are located in [this path](https://github.com/xJuvi/facile-validator/blob/main/src/locales). Just copy any file, translate it into your own language and then make a **PR**.
 
 <br>
 
@@ -694,7 +694,7 @@ We welcome any contributions for other languages. The languages are located in [
 Use `createLang` function to define your own error messages:
 
 ```javascript
-import { Validator, enLang as en, createLang } from '@upjs/facile-validator';
+import { Validator, enLang as en, createLang } from '@xjuvi/facile-validator';
 
 const myLang = createLang({
   required: 'Please fill out this field',
@@ -709,7 +709,7 @@ const v = new Validator(form, {
 Note that in this case you should define a message for each existing rule. Although, to override only certain messages, pass the original language object:
 
 ```javascript
-import { Validator, enLang as en, createLang } from '@upjs/facile-validator';
+import { Validator, enLang as en, createLang } from '@xjuvi/facile-validator';
 
 const myLang = createLang({
   ...en,
@@ -726,7 +726,7 @@ _New in version 1.8.0_
 You can change the current language on runtime by using `setLanguage` method from the validator:
 
 ```javascript
-import { Validator, enLang as en, frLang as fr } from '@upjs/facile-validator';
+import { Validator, enLang as en, frLang as fr } from '@xjuvi/facile-validator';
 
 const v = new Validator(form, {
   lang: en,
@@ -742,11 +742,11 @@ MIT
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/@upjs/facile-validator/latest.svg
-[npm-version-href]: https://npmjs.com/package/@upjs/facile-validator
-[npm-downloads-src]: https://img.shields.io/npm/dt/@upjs/facile-validator.svg
-[npm-downloads-href]: https://npmjs.com/package/@upjs/facile-validator
-[github-actions-ci-src]: https://github.com/upjs/facile-validator/workflows/verify/badge.svg
-[github-actions-ci-href]: https://github.com/upjs/facile-validator/actions/workflows/verify.yml
-[license-src]: https://img.shields.io/npm/l/@upjs/facile-validator.svg
-[license-href]: https://npmjs.com/package/@upjs/facile-validator
+[npm-version-src]: https://img.shields.io/npm/v/@xjuvi/facile-validator/latest.svg
+[npm-version-href]: https://npmjs.com/package/@xjuvi/facile-validator
+[npm-downloads-src]: https://img.shields.io/npm/dt/@xjuvi/facile-validator.svg
+[npm-downloads-href]: https://npmjs.com/package/@xjuvi/facile-validator
+[github-actions-ci-src]: https://github.com/xJuvi/facile-validator/workflows/verify/badge.svg
+[github-actions-ci-href]: https://github.com/xJuvi/facile-validator/actions/workflows/verify.yml
+[license-src]: https://img.shields.io/npm/l/@xjuvi/facile-validator.svg
+[license-href]: https://npmjs.com/package/@xjuvi/facile-validator
