@@ -5,6 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+     id-token: write
+     contents: read
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -15,7 +18,5 @@ jobs:
     - run: npm run test
     - run: npm run build
     - run: npm publish  --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.npm }}
       
       
