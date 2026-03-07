@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import Unocss from 'unocss/vite';
+import Unocss from '@unocss/vite';
 import presetWind from '@unocss/preset-wind';
 
 export default defineConfig({
