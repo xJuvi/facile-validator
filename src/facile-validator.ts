@@ -21,6 +21,7 @@ class Validator {
   private events: EventBus;
   private options: ValidatorOptions;
   private container: HTMLElement;
+  private invalidFields: string[];
 
   /** Global rule registry */
   private static globalRules: Record<string, Rule> = {};
@@ -37,6 +38,7 @@ class Validator {
     this.validatorError = new ValidatorError();
     this.events = new EventBus(this.options.on);
     this.container = container;
+    this.invalidFields = [];
 
     Language.set(this.options.lang);
 
@@ -65,6 +67,12 @@ class Validator {
       isSuccessful = this.validateFields(Array.from(fields));
       status = isSuccessful ? 'success' : 'failed';
     }
+
+    if(this.invalidFields.length > 0) {
+		  this.container.classList.add('has-validation-errors');
+	  } else {
+		  this.container.classList.remove('has-validation-errors');
+	  }
 
     this.events.call('validation:end', this.container, isSuccessful);
 
@@ -107,6 +115,7 @@ class Validator {
         const computedFieldRules = this.getComputedFieldRules(fieldRules, field);
 
         if (this.options.disableInvisibleFields && !checkFieldVisibility(field)) {
+          this.events.call("field:reset", this.container, field);
           continue;
         }
 
@@ -136,11 +145,13 @@ class Validator {
                     typeof customErrorMessage === 'function' ? customErrorMessage(field) : customErrorMessage;
                 }
                 this.validatorError.setError(field, ruleName, result, customMessage);
+                this.invalidFields.push(field.id);
                 if (shouldStopOnFirstFailure) {
                   break;
                 }
               } else if(this.options.renderSuccess) {
                 this.events.call('field:success', this.container, field);
+                this.invalidFields = this.invalidFields.filter(id => id !== field.id);
               }
             } catch (error) {
               console.error(new Error(`${ruleName}: ${(error as Error).message}`));
