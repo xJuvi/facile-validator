@@ -24,6 +24,7 @@ Facile (French word for "easy", pronounced `fa·sil`) is an HTML form validator 
 - [Handling Events](#handling-events)
 - [Available Validation Rules](#available-validation-rules)
 - [X-Prefixed Rules](#x-prefixed-rules)
+- [Adding custom rules](#adding-custom-rules)
 - [Localization](#localization)
 
 > Note: This package does not include any polyfills. If you want to use in old environments, add this package to your project's config transpiling list.
@@ -157,6 +158,7 @@ There are five type of events that can be handled with the hooks:
 - [`validation:end`](#validationend)
 - [`validation:success`](#validationsuccess)
 - [`validation:failed`](#validationfailed)
+- [`field:reset`](#fieldreset)
 - [`field:success`](#fieldsuccess)
 - [`field:error`](#fielderror)
 
@@ -229,6 +231,22 @@ This event will occur when the validation ends while there are some errors in th
 ```javascript
 v.on('validation:failed', (form) => {
   // Notify the user to fix the form
+});
+```
+
+---
+
+#### `field:reset`
+This event will occur when the validation of a field was cancelled beacuse it's invisible and invisible fields shouldn't checked.
+```javascript
+v.on('field:reset', (form, field) => {
+  // Do something like remove validaten classes
+});
+```
+This feature must be enabled by set the option `disableInvisibleFields` to true while initialization in the config object:
+```javascript
+const v = new Validator(form, {
+  disableInvisibleFields: true,
 });
 ```
 
@@ -615,6 +633,63 @@ const v = new Validator(form, {
 ```
 
 In this example, the final argument for `x-regex` rule is the value of `zipcode` property in `xRules` object.
+
+## Adding custom rules
+
+_New in version 2.0.0_
+
+Since v2.0.0 it is possible to inject custom rules with extended checks like software specific needs. This possibility keeps the library clean and small and give you the ability to extend the validator for your needs. Please be aware, this is only possible if you use the ES Module.
+
+```js
+// Simple custom rule
+import { Validator, RuleError } from 'facile-validator';
+
+Validator.addRule('startsWithA', (value) => {
+  if (value.startsWith('A')) return true;
+  return new RuleError('starts_with_a');
+});
+
+// instance only rule (overwrites global rules)
+const v = new Validator(form);
+v.addInstanceRule('localRule', (value) => {
+  return true;
+});
+
+// as ESM Plugin
+//file: myrule.plugin.ts
+import { RuleError, Validator } from 'facile-validator';
+
+export default function myRulesPlugin(ValidatorClass: typeof Validator) {
+  ValidatorClass.addRule('strongPassword', (value) => {
+    if (value.length >= 12) return true;
+    return new RuleError('strong_password');
+  });
+}
+
+//file init.ts
+import { Validator } from 'facile-validator';
+import myRulesPlugin from './my-rules.plugin.js';
+
+Validator.use(myRulesPlugin);
+
+// with lazy loading
+const { default: plugin } = await import('./my-rules.plugin.js');
+Validator.use(plugin);
+
+// multiple rules as one plugin
+import { RuleError, Validator } from 'facile-validator';
+
+export default function extraRules(ValidatorClass: typeof Validator) {
+  ValidatorClass.addRule('foo', (value) => {
+    return value === 'foo' ? true : new RuleError('foo_error');
+  });
+
+  ValidatorClass.addRule('bar', (value) => {
+    return value === 'bar' ? true : new RuleError('bar_error');
+  });
+}
+
+```
 
 ### Custom error messages
 

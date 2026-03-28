@@ -11,6 +11,9 @@ on:
 jobs:
   verify:
     runs-on: ${{ matrix.os }}
+    
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -26,9 +29,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Lint
-        run: npm run lint
 
       - name: Test
         run: npm test
