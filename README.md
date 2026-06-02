@@ -691,6 +691,22 @@ export default function extraRules(ValidatorClass: typeof Validator) {
 
 ```
 
+_New in version 2.1.0_
+
+You can also use the current context inside your plugin rule:
+
+```js
+Validator.addRule('checkFieldName', (value, args, context) => {
+  if (context.field.name === "demoField") return true;
+  return new RuleError('checkFieldName');
+});
+```
+
+The third parameter `context` includes an object with these content:
+- field: FormInputElement (the current field to perform the rule)
+- container: HTMLElement (the whole validation container
+- validator: Validator (the current validator instance)
+
 ### Custom error messages
 
 _New in version 1.12.0_
