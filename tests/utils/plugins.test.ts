@@ -113,8 +113,8 @@ describe('Validator – custom rules & plugins', () => {
   });
   it('use context data for special checks', () => {
     const plugin = (ValidatorClass: typeof Validator) => {
-      ValidatorClass.addRule('contextCheck', (value, args, context) => {
-        return "test" === context.field.name ? true : new RuleError('contextCheck');
+      ValidatorClass.addRule('contextCheck', (_value, _args, context) => {
+        return "test" === context?.field?.name ? true : new RuleError('contextCheck');
       });
     };
 
