@@ -1,5 +1,6 @@
 import { RuleError } from '@/modules/rule-error';
 import * as rules from '@/types/rules';
+import type Validator from '@/facile-validator';
 
 export type ArrayOfValues<T> = {
   [P in keyof T]: T[P][];
@@ -33,7 +34,7 @@ export interface RuleContext {
 }
 
 export interface Rule {
-  (value: string, args?: string, context: RuleContext): true | RuleError;
+  (value: string, args?: string, context?: RuleContext): true | RuleError;
 }
 
 export interface ErrorDetail {
