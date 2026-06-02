@@ -26,8 +26,14 @@ export interface ValidatorOptions {
   disableInvisibleFields?: boolean;
 }
 
+export interface RuleContext {
+  field: FormInputElement;
+  container: HTMLElement;
+  validator: Validator;
+}
+
 export interface Rule {
-  (value: string, args?: string): true | RuleError;
+  (value: string, args?: string, context: RuleContext): true | RuleError;
 }
 
 export interface ErrorDetail {

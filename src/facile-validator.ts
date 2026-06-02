@@ -135,7 +135,11 @@ class Validator {
 
           if (ruleFn) {
             try {
-              const result = ruleFn(value, ruleArgs);
+              const result = ruleFn(value, ruleArgs, {
+							  field,
+							  container: this.container,
+							  validator: this,
+							});
 
               if (result instanceof RuleError) {
                 let customMessage = '';
