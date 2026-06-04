@@ -1,6 +1,6 @@
 {
   "name": "@xjuvi/facile-validator",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Easy HTML form validator written in TypeScript with tree-shaking",
   "repository": {
     "type": "git",
