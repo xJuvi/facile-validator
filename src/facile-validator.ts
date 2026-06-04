@@ -153,9 +153,6 @@ class Validator {
                 if (shouldStopOnFirstFailure) {
                   break;
                 }
-              } else if(this.options.renderSuccess) {
-                this.events.call('field:success', this.container, field);
-                this.invalidFields = this.invalidFields.filter(id => id !== field.id);
               }
             } catch (error) {
               console.error(new Error(`${ruleName}: ${(error as Error).message}`));
@@ -164,6 +161,10 @@ class Validator {
           }
         }
       }
+	  if(!this.validatorError.hasError && this.options.renderSuccess) {
+		this.events.call("field:success", this.container, field);
+		this.invalidFields = this.invalidFields.filter(id => id !== field.id);
+	  }
     }
     return !this.validatorError.hasError;
   }
